@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grade Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    input {
+      margin: 10px 0;
+      padding: 8px;
+      width: calc(100% - 20px);
+    }
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      cursor: pointer;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .output {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Grade Calculator</h1>
+    <h3>Convert Points to Percentage and Grade</h3>
+    <input type="number" id="points" placeholder="Enter points scored">
+    <input type="number" id="totalPoints" placeholder="Enter total points">
+    <button onclick="calculateGrade()">Calculate Grade</button>
+    <div class="output" id="result"></div>
+    
+    <h3>Reverse: Get Required Points for a Grade</h3>
+    <input type="number" id="desiredGrade" placeholder="Enter desired grade (1-5)">
+    <input type="number" id="examTotalPoints" placeholder="Enter total exam points">
+    <button onclick="calculateRequiredPoints()">Calculate Required Points</button>
+    <div class="output" id="requiredResult"></div>
+  </div>
+
+  <script>
+    function calculateGrade() {
+      const points = parseFloat(document.getElementById("points").value);
+      const totalPoints = parseFloat(document.getElementById("totalPoints").value);
+      if (isNaN(points) || isNaN(totalPoints) || totalPoints <= 0) {
+        document.getElementById("result").textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      const percentage = (points / totalPoints) * 100;
+      let grade;
+
+      if (percentage >= 96) grade = 1;
+      else if (percentage >= 80) grade = 2;
+      else if (percentage >= 60) grade = 3;
+      else if (percentage >= 40) grade = 4;
+      else grade = 5;
+
+      document.getElementById("result").textContent =
+        `Your percentage is ${percentage.toFixed(2)}%. Your grade is a ${grade}.`;
+    }
+
+    function calculateRequiredPoints() {
+      const desiredGrade = parseInt(document.getElementById("desiredGrade").value);
+      const examTotalPoints = parseFloat(document.getElementById("examTotalPoints").value);
+      if (isNaN(desiredGrade) || isNaN(examTotalPoints) || examTotalPoints <= 0) {
+        document.getElementById("requiredResult").textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      let percentageNeeded;
+      if (desiredGrade === 1) percentageNeeded = 96;
+      else if (desiredGrade === 2) percentageNeeded = 80;
+      else if (desiredGrade === 3) percentageNeeded = 60;
+      else if (desiredGrade === 4) percentageNeeded = 40;
+      else if (desiredGrade === 5) percentageNeeded = 0;
+      else {
+        document.getElementById("requiredResult").textContent = "Invalid grade entered.";
+        return;
+      }
+
+      const pointsNeeded = (percentageNeeded / 100) * examTotalPoints;
+      document.getElementById("requiredResult").textContent =
+        `To get a grade ${desiredGrade}, you need at least ${pointsNeeded.toFixed(2)} points (${percentageNeeded}%).`;
+    }
+  </script>
+</body>
+</html>
