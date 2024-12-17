@@ -99,11 +99,15 @@
     <div class="output" id="result"></div>
 
     <h3>Reverse: Get Required Points for a Grade</h3>
-    <input type="number" id="desiredGrade" placeholder="Enter desired grade (1-5)" required>
+    <input type="number" id="desiredGrade" placeholder="Enter desired grade (1-6)" required>
     <input type="number" id="examTotalPoints" placeholder="Enter total exam points" required>
     <button onclick="calculateRequiredPoints()">Calculate Required Points</button>
     <div class="output" id="requiredResult"></div>
   </div>
+
+  <footer>
+    &copy; 2024 GCPhorms | Designed with ❤️ for students | <a href="#">Contact Us</a>
+  </footer>
 
   <script>
     function calculateGrade() {
@@ -121,8 +125,9 @@
       if (percentage >= 96) grade = 1;
       else if (percentage >= 80) grade = 2;
       else if (percentage >= 60) grade = 3;
-      else if (percentage >= 40) grade = 4;
-      else grade = 5;
+      else if (percentage >= 45) grade = 4;
+      else if (percentage >= 16) grade = 5;
+      else grade = 6;
 
       document.getElementById("result").textContent =
         `Your percentage is ${percentage.toFixed(2)}%. Your grade is a ${grade}.`;
@@ -141,8 +146,9 @@
       if (desiredGrade === 1) percentageNeeded = 96;
       else if (desiredGrade === 2) percentageNeeded = 80;
       else if (desiredGrade === 3) percentageNeeded = 60;
-      else if (desiredGrade === 4) percentageNeeded = 40;
-      else if (desiredGrade === 5) percentageNeeded = 0;
+      else if (desiredGrade === 4) percentageNeeded = 45;
+      else if (desiredGrade === 5) percentageNeeded = 16;
+      else if (desiredGrade === 6) percentageNeeded = 0;
       else {
         document.getElementById("requiredResult").textContent = "Invalid grade entered.";
         return;
